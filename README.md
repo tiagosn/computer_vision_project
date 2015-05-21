@@ -1,1 +1,3 @@
-# computer_vision_project
+# Projeto de Visão Computacional
+#
+# 
