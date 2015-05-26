@@ -2,16 +2,17 @@
 
 function out = lbp(src, P, R)
     u = zeros(size(src));
-    %out = zeros(size(src), 'uint8');
-    out = zeros(size(src));
+    out = zeros(size(src), 'uint8');
+    %out = zeros(size(src));
     code = zeros(size(src));
     
     rows = size(src, 1);
     cols = size(src, 2);
     
     for p = 1:P
-        x = -R*sin(2*pi*p/P);
-        y = R*cos(2*pi*p/P);
+        x = -R*sin(2*pi*(p-1)/P);
+        y = R*cos(2*pi*(p-1)/P);
+        fprintf('p = %d, x = %d, y = %d\n', p, x, y);
         
         fx = floor(x);
         fy = floor(y);
@@ -37,12 +38,12 @@ function out = lbp(src, P, R)
         end
     end
     
-    p1 = bitget(out, P);
-    p2 = bitget(out, 1);
+    p1 = bitget(code, P);
+    p2 = bitget(code, 1);
     u = u + xor(p1, p2);
-    for p = 1:P
+    for p = 2:P
         p1 = p2;
-        p2 = bitget(out, p);
+        p2 = bitget(code, p);
         u = u + xor(p1, p2);
     end
     
