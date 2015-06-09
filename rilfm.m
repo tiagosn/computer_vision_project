@@ -24,8 +24,10 @@ function features = rilfm(f1, f2, r1, r2)
     CH1 = fftshift(fft2(f1));
     CH2 = fftshift(fft2(f2));
         
-    D = zeros(size(f1));
+    %D = zeros(size(f1));
     
+    sum1 = 0;
+    sum2 = 0;
     total = 0;
     for i = 1:rows
         for j = 1:cols
@@ -34,17 +36,21 @@ function features = rilfm(f1, f2, r1, r2)
             d = sqrt(x^2 + y^2);
             
             if(d >= r1 && d <= r2)
-                D(i,j) = 1;
+                %D(i,j) = 1;
+                sum1 = sum1 + abs(CH1(i, j));
+                sum2 = sum2 + abs(CH2(i, j));
                 total = total + 1;
             end
         end
     end
     
-    aux1 = abs(CH1).*D;
-    aux2 = abs(CH2).*D;
+    %aux1 = abs(CH1).*D;
+    %aux2 = abs(CH2).*D;
     
-    features = [0, 0];
-    features(1) = sum(aux1(:))/total;
-    features(2) = sum(aux2(:))/total;
+    %features = [0, 0];
+    %features(1) = sum(aux1(:))/total;
+    %features(2) = sum(aux2(:))/total;
+    
+    features = [sum1/total sum2/total]; 
 end
 
