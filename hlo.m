@@ -7,8 +7,9 @@ function hlo_std = hlo(f2i, f2j, d)
     cols = size(f2i, 2);
     
     oriBinIdx = zeros(rows, cols, 2);
-    oriBinIdx(:,:,1) = floor(d*phd/(2*pi));
-    oriBinIdx(:,:,2) = ceil(d*phd/(2*pi));
+    oriBinIdx(:,:,1) = floor(d*phd/(2*pi)) + 1;
+    oriBinIdx(:,:,2) = ceil(d*phd/(2*pi)) + 1;
+    oriBinIdx(oriBinIdx>d) = 0;
     
     oriBinVal = zeros(rows, cols, 2);
     oriBinVal(:,:,1) = (2*pi/d - abs(2*pi*(oriBinIdx(:,:,1)-1)/d - phd))/(2*pi/d);
